@@ -122,32 +122,60 @@
 
 // }
 
-document.getElementById('send-button').addEventListener('click', sendMessage);
+// document.getElementById('send-button').addEventListener('click', sendMessage);
 
-function sendMessage() {
-    const userInput = document.getElementById('user-input').value;
+// function sendMessage() {
+//     const userInput = document.getElementById('user-input').value;
     
-    if (userInput.trim() === '') return;
+//     if (userInput.trim() === '') return;
 
-    addMessageToChat('Usuario: ' + userInput);
+//     addMessageToChat('Usuario: ' + userInput);
     
-    fetch('/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message: userInput })
-    })
-    .then(response => response.json())
-    .then(data => {
-        addMessageToChat('Bot: ' + data.reply);
-        document.getElementById('user-input').value = '';
-    });
-}
+//     fetch('/chat', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ message: userInput })
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         addMessageToChat('Bot: ' + data.reply);
+//         document.getElementById('user-input').value = '';
+//     });
+// }
 
-function addMessageToChat(message) {
-    const chatBox = document.getElementById('chat-box');
-    const messageDiv = document.createElement('div');
+// function addMessageToChat(message) {
+//     const chatBox = document.getElementById('chat-box');
+//     const messageDiv = document.createElement('div');
+//     messageDiv.textContent = message;
+//     chatBox.appendChild(messageDiv);
+// }
+
+document.getElementById("send-btn").addEventListener("click", function() {
+    const userInput = document.getElementById("user-input").value;
+    
+    if (userInput.trim()) {
+        appendMessage("Usuario: " + userInput);
+        document.getElementById("user-input").value = '';
+        
+        fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: userInput })
+        })
+        .then(response => response.json())
+        .then(data => appendMessage("Bot: " + data.response));
+    }
+});
+
+function appendMessage(message) {
+    const chatBox = document.getElementById("chat-box");
+    const messageDiv = document.createElement("div");
     messageDiv.textContent = message;
     chatBox.appendChild(messageDiv);
+    
+    chatBox.scrollTop = chatBox.scrollHeight; // Desplazar hacia abajo
 }

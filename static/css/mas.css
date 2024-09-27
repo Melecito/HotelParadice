@@ -39,3 +39,32 @@ button{
 button:hover{
     background-color: black;
 }
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-box {
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.chat-box div {
+    margin-bottom: 10px;
+}
+
+#user-input {
+    width: calc(100% - 60px);
+}
+
+#send-btn {
+    width: 50px;
+}
+
